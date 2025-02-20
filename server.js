@@ -24,7 +24,10 @@ const loadSongs = async () => {
 };
 
 // API Routes
-
+// Get all songs
+app.get('/api/songs', (req, res) => {
+    res.json(songs);
+});
 
 // Get song by ID
 app.get('/api/songs/:id', (req, res) => {
