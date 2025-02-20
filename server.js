@@ -69,9 +69,17 @@ app.get('/api/songs/artist/:artist', async (req, res) => {
 // Initialize database with songs from songs.json
 const initializeDatabase = async () => {
     try {
-        const songs = require('./songs.json');
+        const songsData = require('./songs.json');
+        const transformedSongs = songsData.map(song => ({
+            id: song.songId,
+            title: song.songTitle,
+            artist: song.artistData.name,
+            genre: song.genre,
+            year: new Date(song.releaseDate).getFullYear()
+        }));
+        
         await Song.deleteMany({}); // Clear existing data
-        await Song.insertMany(songs);
+        await Song.insertMany(transformedSongs);
         console.log('Database initialized with songs');
     } catch (error) {
         console.error('Error initializing database:', error);
