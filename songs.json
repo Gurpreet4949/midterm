@@ -1,0 +1,79 @@
+[
+  {
+    "songId": 101,
+    "artistData": {
+      "artistId": 501,
+      "name": "Taylor Swift",
+      "country": "USA"
+    },
+    "releaseDate": "2023-05-21",
+    "songTitle": "Evermore",
+    "genre": "Indie Folk"
+  },
+  {
+    "songId": 102,
+    "artistData": {
+      "artistId": 502,
+      "name": "BTS",
+      "country": "South Korea"
+    },
+    "releaseDate": "2023-06-15",
+    "songTitle": "Butter",
+    "genre": "Pop"
+  },
+  {
+    "songId": 103,
+    "artistData": {
+      "artistId": 503,
+      "name": "Adele",
+      "country": "UK"
+    },
+    "releaseDate": "2023-04-30",
+    "songTitle": "Easy On Me",
+    "genre": "Pop"
+  },
+  {
+    "songId": 104,
+    "artistData": {
+      "artistId": 504,
+      "name": "The Weeknd",
+      "country": "Canada"
+    },
+    "releaseDate": "2023-07-09",
+    "songTitle": "Take My Breath",
+    "genre": "R&B"
+  },
+  {
+    "songId": 105,
+    "artistData": {
+      "artistId": 505,
+      "name": "Ed Sheeran",
+      "country": "UK"
+    },
+    "releaseDate": "2023-03-18",
+    "songTitle": "Shape of You",
+    "genre": "Pop"
+  },
+  {
+    "songId": 106,
+    "artistData": {
+      "artistId": 506,
+      "name": "Dua Lipa",
+      "country": "UK"
+    },
+    "releaseDate": "2023-02-25",
+    "songTitle": "Levitating",
+    "genre": "Dance"
+  },
+  {
+    "songId": 107,
+    "artistData": {
+      "artistId": 507,
+      "name": "Billie Eilish",
+      "country": "USA"
+    },
+    "releaseDate": "2023-01-12",
+    "songTitle": "Happier Than Ever",
+    "genre": "Pop"
+  }
+]
