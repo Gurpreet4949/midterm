@@ -1,24 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Songs API</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Library API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .button-group {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        #searchInput {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        #results {
+            border: 1px solid #ccc;
+            padding: 20px;
+            min-height: 200px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-  <h1>Songs API</h1>
-  <p>Use the buttons below to fetch data from the songs API:</p>
-   
-  <button id="getAllSongs">Get All Songs</button>
-  <button id="getSongById">Get Song By ID</button>
-  <button id="getSongsByArtist">Get Songs By Artist</button>
-   
-  <h2>Results:</h2>
-  <pre id="results"></pre>
-   
-  <script>
-    // Students need to implement the JavaScript code here
-    // This includes fetching data from the REST API and handling the responses.
-  </script>
+    <h1>Music Library API</h1>
+    
+    <div class="button-group">
+        <button onclick="getAllSongs()">Get All Songs</button>
+        <input type="text" id="songId" placeholder="Enter Song ID">
+        <button onclick="getSongById()">Get Song by ID</button>
+        <input type="text" id="artistName" placeholder="Enter Artist Name">
+        <button onclick="getSongsByArtist()">Get Songs by Artist</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        function displayResults(data) {
+            if (Array.isArray(data)) {
+                resultsDiv.innerHTML = data.map(song => `
+                    <div>
+                        <h3>${song.title}</h3>
+                        <p>Artist: ${song.artist}</p>
+                        <p>Genre: ${song.genre}</p>
+                        <p>Year: ${song.year}</p>
+                        <p>ID: ${song.id}</p>
+                        <hr>
+                    </div>
+                `).join('');
+            } else {
+                resultsDiv.innerHTML = `
+                    <div>
+                        <h3>${data.title}</h3>
+                        <p>Artist: ${data.artist}</p>
+                        <p>Genre: ${data.genre}</p>
+                        <p>Year: ${data.year}</p>
+                        <p>ID: ${data.id}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayError(message) {
+            resultsDiv.innerHTML = `<p class="error">${message}</p>`;
+        }
+
+        async function getAllSongs() {
+            try {
+                const response = await fetch('http://localhost:3000/api/songs');
+                if (!response.ok) throw new Error('Failed to fetch songs');
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        async function getSongById() {
+            const id = document.getElementById('songId').value;
+            if (!id) {
+                displayError('Please enter a song ID');
+                return;
+            }
+            try {
+                const response = await fetch(`http://localhost:3000/api/songs/${id}`);
+                if (!response.ok) throw new Error('Song not found');
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+
+        async function getSongsByArtist() {
+            const artist = document.getElementById('artistName').value;
+            if (!artist) {
+                displayError('Please enter an artist name');
+                return;
+            }
+            try {
+                const response = await fetch(`http://localhost:3000/api/songs/artist/${encodeURIComponent(artist)}`);
+                if (!response.ok) throw new Error('No songs found for this artist');
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayError(error.message);
+            }
+        }
+    </script>
 </body>
 </html>
